@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURENIX — D.A.S. Digital Acquisition System</title>
+<meta name="description" content="AURENIX construye sistemas de adquisición digital para negocios que ya venden bien pero no tienen un canal predecible para conseguir nuevos clientes. Diagnosticamos, medimos y optimizamos con el D.A.S. — Digital Acquisition System.">
+<meta name="theme-color" content="#0B0D10">
+
+<!-- Open Graph / WhatsApp / redes sociales -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AURENIX">
+<meta property="og:title" content="AURENIX — D.A.S. Digital Acquisition System">
+<meta property="og:description" content="Construimos sistemas para conseguir clientes: infraestructura, adquisición, conversión, datos y automatización en un solo sistema.">
+<meta property="og:image" content="assets/img/og-image.jpg">
+<meta property="og:locale" content="es_CO">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AURENIX — D.A.S. Digital Acquisition System">
+<meta name="twitter:description" content="Construimos sistemas para conseguir clientes.">
+<meta name="twitter:image" content="assets/img/og-image.jpg">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-512.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obsidian:#0B0D10;
+    --obsidian-hover:#12161C;
+    --graphite:#15191F;
+    --elevated:#1B2027;
+    --gold:#C9A227;
+    --gold-hover:#E0B83A;
+    --gold-active:#A98516;
+    --titanium:#8E98A7;
+    --titanium-hover:#AAB3C0;
+    --ice:#F2F4F7;
+    --line: rgba(142,152,167,0.22);
+    --maxw: 1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--obsidian);
+    color:var(--ice);
+    font-family:'Manrope', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--gold); color:var(--obsidian); }
+
+  :focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  /* ---------- AMBIENT SCROLL GLOW ---------- */
+  .scene-glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+  }
+  .scene-glow.cool{
+    background:radial-gradient(circle at 18% 8%, rgba(142,152,167,0.18), transparent 58%);
+    opacity:1;
+  }
+  .scene-glow.warm{
+    background:radial-gradient(circle at 82% 92%, rgba(201,162,39,0.24), transparent 58%);
+    opacity:0;
+  }
+  #bgCanvas{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    display:block;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    background:rgba(11,13,16,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .mark{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .mark-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    letter-spacing:0.02em;
+  }
+  .mark-name span{ color:var(--gold); }
+  .mark-tag{
+    font-size:12px;
+    color:var(--titanium);
+    letter-spacing:0.02em;
+    white-space:nowrap;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:32px;
+    font-size:14.5px;
+  }
+  .nav-links a:not(.btn){
+    color:var(--titanium);
+    text-decoration:none;
+    transition:color .18s ease;
+  }
+  .nav-links a:not(.btn):hover{ color:var(--ice); }
+  .nav-toggle{ display:none; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 22px;
+    border-radius:6px;
+    font-family:'Manrope', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    text-decoration:none;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:background .18s ease, border-color .18s ease, transform .12s ease;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--obsidian);
+  }
+  .btn-primary:hover{ background:var(--gold-hover); }
+  .btn-primary:active{ background:var(--gold-active); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--line);
+    color:var(--ice);
+  }
+  .btn-ghost:hover{ border-color:var(--titanium-hover); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:190px 0 120px;
+    overflow:hidden;
+    border-top:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background-image:
+      linear-gradient(100deg, var(--obsidian) 0%, rgba(11,13,16,0.93) 30%, rgba(11,13,16,0.7) 52%, rgba(11,13,16,0.42) 72%, rgba(11,13,16,0.28) 100%),
+      linear-gradient(0deg, var(--obsidian) 0%, transparent 22%),
+      url('assets/img/hero-clientes.jpg');
+    background-size:cover, cover, cover;
+    background-position:center, center, 62% 42%;
+    filter:blur(1.5px) saturate(0.85);
+    opacity:0.8;
+    pointer-events:none;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(201,162,39,0.16) 1px, transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 78%);
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 78%);
+    pointer-events:none;
+  }
+  .hero .wrap{ position:relative; z-index:1; }
+  @media (max-width: 760px){
+    .hero::after{ opacity:0.5; }
+  }
+  .hero-inner{ position:relative; max-width:640px; }
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 62px);
+    line-height:1.08;
+    color:var(--ice);
+  }
+  .hero p.lead{
+    margin-top:24px;
+    max-width:560px;
+    font-size:18px;
+    color:var(--titanium-hover);
+  }
+  .hero-actions{
+    margin-top:40px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .link-quiet{
+    font-size:14.5px;
+    color:var(--titanium);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .link-quiet:hover{ color:var(--ice); border-color:var(--titanium-hover); }
+
+  .formula{
+    margin-top:88px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px 14px;
+    color:var(--titanium);
+    font-size:14px;
+    letter-spacing:0.01em;
+  }
+  .formula b{
+    color:var(--ice);
+    font-weight:600;
+  }
+  .formula .sep{ color:var(--gold); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:108px 0; border-top:1px solid var(--line); }
+  .eyebrow-free-heading{
+    font-size:clamp(26px, 3.4vw, 36px);
+    max-width:640px;
+  }
+  .section-head{ margin-bottom:56px; }
+  .section-head p{
+    margin-top:16px;
+    max-width:580px;
+    color:var(--titanium-hover);
+    font-size:16px;
+  }
+
+  /* ---------- PROBLEMA ---------- */
+  .problem-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:64px;
+    align-items:start;
+  }
+  .problem-quote{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(24px, 3vw, 32px);
+    line-height:1.35;
+    color:var(--ice);
+    border-left:2px solid var(--gold);
+    padding-left:28px;
+  }
+  .problem-quote small{
+    display:block;
+    margin-top:20px;
+    font-family:'Manrope', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--titanium);
+  }
+  .problem-list{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .problem-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    font-size:15.5px;
+    color:var(--titanium-hover);
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+  }
+  .problem-list li:last-child{ border-bottom:none; padding-bottom:0; }
+  .problem-list li span{ padding-top:3px; }
+
+  .icon-badge{
+    flex:none;
+    width:32px; height:32px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--graphite);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .icon-badge svg{
+    width:17px; height:17px;
+    stroke:var(--gold);
+    fill:none;
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  /* ---------- PROBLEMA: TIPOS DE NEGOCIO ---------- */
+  .sector-label{
+    margin-top:56px;
+    font-size:12.5px;
+    color:var(--titanium);
+    letter-spacing:0.02em;
+  }
+  .sector-strip{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:16px;
+  }
+  .sector-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    text-align:center;
+    padding:20px 8px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--graphite);
+    transition:border-color .18s ease;
+  }
+  .sector-item:hover{ border-color:var(--titanium); }
+  .sector-item .icon-badge{ width:40px; height:40px; border-radius:10px; }
+  .sector-item .icon-badge svg{ width:20px; height:20px; }
+  .sector-item span{ font-size:12.5px; color:var(--titanium-hover); line-height:1.3; }
+  @media (max-width: 760px){
+    .sector-strip{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ---------- TRANSFORMACION ---------- */
+  .flow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px 6px;
+    font-size:14.5px;
+    padding:20px 24px;
+    border-radius:8px;
+    background:var(--graphite);
+  }
+  .flow .node{ white-space:nowrap; }
+  .flow .arrow{ color:var(--titanium); flex:none; }
+  .flow.before{ color:var(--titanium-hover); margin-bottom:14px; }
+  .flow.before .arrow{ color:var(--titanium); }
+  .flow.after{ color:var(--ice); background:var(--elevated); border:1px solid rgba(201,162,39,0.25); }
+  .flow.after .node{ color:var(--ice); }
+  .flow.after .arrow{ color:var(--gold); }
+  .flow-label{
+    font-size:12.5px;
+    color:var(--titanium);
+    margin-bottom:10px;
+    display:block;
+  }
+
+  /* ---------- D.A.S. — REFRAME ---------- */
+  .das-kicker{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(20px, 2.6vw, 25px);
+    color:var(--titanium-hover);
+    max-width:680px;
+    margin-bottom:8px;
+    line-height:1.4;
+  }
+  .das-kicker b{ color:var(--ice); font-weight:600; }
+  .das-loop-line{
+    margin-top:18px;
+    font-size:14px;
+    color:var(--titanium);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .das-loop-line .sep{ color:var(--gold); }
+  .das-loop-line b{ color:var(--ice); font-weight:600; }
+
+  /* ---------- D.A.S.: PESTAÑAS + PANEL (todas las fases visibles a la vez) ---------- */
+  #sistema{ position:relative; overflow:hidden; }
+  #sistema::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background-image:
+      linear-gradient(180deg, rgba(11,13,16,0.92), rgba(11,13,16,0.85) 40%, rgba(11,13,16,0.96) 100%),
+      url('assets/img/das-fondo.jpg');
+    background-size:cover;
+    background-position:center;
+    pointer-events:none;
+  }
+  #sistema .wrap{ position:relative; z-index:1; }
+
+  .das-tabs{
+    margin-top:56px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .das-tab{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:11px 16px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:rgba(21,25,31,0.75);
+    cursor:pointer;
+    font-family:'Manrope', sans-serif;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  .das-tab:hover{ border-color:var(--titanium); }
+  .das-tab.active{ border-color:rgba(201,162,39,0.6); background:var(--elevated); }
+  .das-tab-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    color:var(--gold);
+  }
+  .das-tab-name{ font-size:14px; font-weight:600; color:var(--titanium-hover); }
+  .das-tab.active .das-tab-name{ color:var(--ice); }
+  .das-tab .das-icon{ width:14px; height:14px; }
+
+  .das-panels{ margin-top:36px; }
+  .das-panel{ display:none; }
+  .das-panel.active{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .das-panel-media{
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--graphite);
+    aspect-ratio:3/2;
+  }
+  .das-panel-media img{ width:100%; height:100%; display:block; object-fit:cover; }
+  .das-panel-text .das-node{ margin-bottom:20px; }
+  .das-panel-text .das-phase{ font-size:21px; }
+  .das-panel-text .das-icon{ width:19px; height:19px; }
+  .das-panel-text .das-q{ margin-top:10px; font-size:16.5px; color:var(--titanium-hover); }
+  .das-panel-text .das-desc{ margin-top:14px; font-size:14.5px; color:var(--titanium); max-width:420px; }
+
+  .cycle-caption{
+    text-align:center;
+    font-size:14px;
+    color:var(--titanium);
+    max-width:480px;
+    margin:40px auto 0;
+  }
+
+  @media (max-width: 760px){
+    .das-panel.active{ grid-template-columns:1fr; gap:24px; }
+    .das-tab{ padding:9px 13px; }
+  }
+
+  .das-node{
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--obsidian);
+    border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--gold);
+  }
+  .das-phase{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--ice);
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+  }
+  .das-icon{
+    width:15px; height:15px;
+    flex:none;
+    stroke:var(--gold);
+    fill:none;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- COMO PIENSA EL SISTEMA ---------- */
+  .think-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+  }
+  .think-col h3{
+    font-size:15px;
+    color:var(--titanium);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .rule-list{ display:flex; flex-direction:column; }
+  .rule-row{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    align-items:baseline;
+    gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px;
+  }
+  .rule-row:last-child{ border-bottom:none; }
+  .rule-q{ color:var(--titanium-hover); }
+  .rule-cond{
+    color:var(--titanium);
+    font-size:12px;
+    padding:3px 10px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .rule-phase{
+    color:var(--gold);
+    font-weight:600;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    white-space:nowrap;
+  }
+  .protocol-list{ list-style:none; margin:0; padding:0; }
+  .protocol-list li{
+    display:flex;
+    gap:16px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .protocol-list li:last-child{ border-bottom:none; }
+  .protocol-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    color:var(--gold);
+    font-size:13px;
+    flex:none;
+    width:22px;
+  }
+  .protocol-body b{
+    display:block;
+    color:var(--ice);
+    font-size:14.5px;
+    font-weight:600;
+  }
+  .protocol-body span{ color:var(--titanium); font-size:13.5px; }
+
+  /* ---------- DIAGNOSTICOS EN CURSO ---------- */
+  .diag-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .diag-card{
+    background:var(--graphite);
+    border-radius:8px;
+    padding:28px;
+  }
+  .diag-row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px;
+  }
+  .diag-row:last-child{ border-bottom:none; }
+  .diag-row span:first-child{ color:var(--titanium); flex:none; }
+  .diag-row span:last-child{ color:var(--titanium-hover); text-align:right; }
+  .diag-note{
+    margin-top:24px;
+    font-size:13.5px;
+    color:var(--titanium);
+    max-width:640px;
+  }
+
+  /* ---------- PARA QUIEN ---------- */
+  .who-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:64px;
+  }
+  .who-traits{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--line);
+  }
+  .who-traits li{
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    color:var(--titanium-hover);
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .who-traits li span:first-child{ color:var(--ice); font-weight:500; }
+  .who-copy p{ color:var(--titanium-hover); font-size:16px; margin:0 0 18px; }
+  .who-copy strong{ color:var(--ice); font-weight:600; }
+
+  /* ---------- POSICIONAMIENTO / STATEMENTS ---------- */
+  .lead-statement{
+    font-size:19px;
+    color:var(--titanium-hover);
+    max-width:640px;
+    margin-bottom:52px;
+    line-height:1.55;
+  }
+  .lead-statement strong{ color:var(--ice); font-weight:600; }
+  .statements{
+    display:flex;
+    flex-direction:column;
+    gap:36px;
+  }
+  .statement{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(22px, 3.6vw, 34px);
+    line-height:1.3;
+    color:var(--titanium);
+  }
+  .statement b{
+    color:var(--ice);
+    font-weight:600;
+  }
+  .statement:nth-child(1){ padding-left:0; }
+  .statement:nth-child(2){ padding-left:6%; }
+  .statement:nth-child(3){ padding-left:12%; }
+
+  /* ---------- COMO EMPEZAMOS ---------- */
+  .steps-row{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    position:relative;
+  }
+  .steps-row::before{
+    content:"";
+    position:absolute;
+    top:26px;
+    left:6%;
+    right:6%;
+    height:1px;
+    background:var(--line);
+  }
+  .step-item{
+    position:relative;
+    padding-right:24px;
+  }
+  .step-num{
+    width:52px; height:52px;
+    border-radius:50%;
+    background:var(--obsidian);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+  }
+  .step-num svg{
+    width:20px; height:20px;
+    stroke:var(--gold);
+    fill:none;
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .step-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15.5px;
+    color:var(--ice);
+    margin-bottom:8px;
+  }
+  .step-desc{
+    font-size:14px;
+    color:var(--titanium);
+    line-height:1.55;
+  }
+  @media (max-width: 760px){
+    .steps-row{ grid-template-columns:1fr; gap:32px; }
+    .steps-row::before{ display:none; }
+    .step-item{ padding-right:0; padding-left:24px; border-left:1px solid var(--line); }
+    .step-num{ margin-left:-27px; }
+  }
+
+  /* ---------- CTA FINAL ---------- */
+  .final-cta{
+    text-align:left;
+    padding:120px 0 140px;
+  }
+  .final-cta h2{
+    font-size:clamp(30px, 4.6vw, 46px);
+    max-width:640px;
+    line-height:1.15;
+  }
+  .final-cta .row{
+    margin-top:36px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:40px 0;
+  }
+  .footer-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-copy{ color:var(--titanium); font-size:13px; }
+  .footer-links{
+    display:flex;
+    gap:24px;
+    font-size:13.5px;
+  }
+  .footer-links a{ color:var(--titanium); text-decoration:none; }
+  .footer-links a:hover{ color:var(--ice); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed;
+      top:64px; left:0; right:0;
+      background:var(--obsidian);
+      border-bottom:1px solid var(--line);
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+      padding:8px 32px 20px;
+      transform:translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    .nav-links.open{
+      opacity:1; transform:translateY(0); pointer-events:auto;
+    }
+    .nav-links a:not(.btn){ padding:12px 0; width:100%; border-bottom:1px solid var(--line); }
+    .nav-links .btn{ margin-top:14px; }
+    .nav-toggle{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:6px;
+    }
+    .nav-toggle span{ width:20px; height:2px; background:var(--ice); border-radius:2px; }
+
+    .problem-grid, .who-grid, .think-grid, .diag-grid{ grid-template-columns:1fr; gap:40px; }
+    .statement:nth-child(2){ padding-left:3%; }
+    .statement:nth-child(3){ padding-left:6%; }
+    .hero{ padding:150px 0 90px; }
+    section{ padding:76px 0; }
+  }
+  @media (max-width: 520px){
+    .wrap, .nav{ padding-left:20px; padding-right:20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene-glow cool" id="glowCool"></div>
+<div class="scene-glow warm" id="glowWarm"></div>
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+<header>
+  <div class="nav">
+    <div class="mark">
+      <span class="mark-name">AURE<span>NIX</span></span>
+      <span class="mark-tag">D.A.S. — Digital Acquisition System</span>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#sistema">Cómo funciona</a>
+      <a href="#para-quien">Para quién</a>
+      <a href="#posicionamiento">Posicionamiento</a>
+      <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20hablar%20sobre%20mi%20sistema%20de%20adquisici%C3%B3n" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <h1>Construimos sistemas para conseguir clientes.</h1>
+        <p class="lead">AURENIX conecta infraestructura, adquisición, conversión, datos y automatización en un solo sistema: el D.A.S. — Digital Acquisition System.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
+          <a href="#sistema" class="link-quiet">Ver cómo funciona</a>
+        </div>
+      </div>
+      <div class="formula">
+        <span class="node"><b>Infraestructura</b></span><span class="sep">→</span>
+        <span class="node"><b>Tráfico</b></span><span class="sep">→</span>
+        <span class="node"><b>Ventas</b></span><span class="sep">→</span>
+        <span class="node"><b>Datos</b></span><span class="sep">→</span>
+        <span class="node"><b>Crecimiento</b></span><span class="sep">→</span>
+        <span class="node"><b>Eficiencia</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema">
+    <div class="wrap">
+      <div class="problem-grid">
+        <div>
+          <p class="problem-quote">
+            "Tengo algo que vender, pero no tengo un sistema predecible para conseguir nuevos clientes."
+            <small>Lo que sienten la mayoría de negocios que ya venden bien</small>
+          </p>
+        </div>
+        <ul class="problem-list">
+          <li>
+            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="2.6"/><circle cx="17" cy="12" r="2.6"/><line x1="10.2" y1="12" x2="13.8" y2="12" stroke-dasharray="2 3"/></svg></span>
+            <span>Presencia digital incompleta o desconectada entre canales</span>
+          </li>
+          <li>
+            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <span>Publicidad sin hipótesis: se lanza sin saber qué se busca aprender</span>
+          </li>
+          <li>
+            <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="15" height="10" rx="2"/><polygon points="7,15 7,19 11,15" fill="currentColor" stroke="none"/><line x1="21" y1="10" x2="23" y2="10" stroke-dasharray="1 2"/></svg></span>
+            <span>Conversaciones que no siguen un proceso de cierre</span>
+          </li>
+          <li>
+            <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+            <span>Decisiones tomadas por intuición, sin datos que las respalden</span>
+          </li>
+          <li>
+            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/><text x="10" y="13" font-size="7.5" text-anchor="middle" fill="currentColor" stroke="none">?</text></svg></span>
+            <span>Imposibilidad real de saber qué está funcionando y qué no</span>
+          </li>
+        </ul>
+      </div>
+      <p class="sector-label">Es una sensación transversal — no importa el sector:</p>
+      <div class="sector-strip">
+        <div class="sector-item">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+          <span>Retail &amp; tiendas</span>
+        </div>
+        <div class="sector-item">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 4h13v7a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V4z"/><path d="M17 7h2a2 2 0 0 1 0 4h-2"/><line x1="7" y1="20" x2="14" y2="20"/></svg></span>
+          <span>Restaurantes</span>
+        </div>
+        <div class="sector-item">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+          <span>Servicios profesionales</span>
+        </div>
+        <div class="sector-item">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></span>
+          <span>Salud &amp; belleza</span>
+        </div>
+        <div class="sector-item">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><line x1="12" y1="13" x2="12" y2="21"/></svg></span>
+          <span>E-commerce</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORMACION -->
+  <section id="transformacion">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">De ventas aisladas a un sistema repetible</h2>
+        <p>El mismo negocio, dos formas de operar. AURENIX no cambia lo que vendes: cambia cómo llegan quienes te compran.</p>
+      </div>
+      <span class="flow-label">Antes</span>
+      <div class="flow before">
+        <span class="node">Negocio</span><span class="arrow">→</span>
+        <span class="node">publicaciones</span><span class="arrow">→</span>
+        <span class="node">esperar</span><span class="arrow">→</span>
+        <span class="node">mensajes ocasionales</span><span class="arrow">→</span>
+        <span class="node">ventas</span>
+      </div>
+      <span class="flow-label">Después</span>
+      <div class="flow after">
+        <span class="node">Negocio</span><span class="arrow">→</span>
+        <span class="node">sistema digital</span><span class="arrow">→</span>
+        <span class="node">adquisición</span><span class="arrow">→</span>
+        <span class="node">conversión</span><span class="arrow">→</span>
+        <span class="node">datos</span><span class="arrow">→</span>
+        <span class="node">optimización</span><span class="arrow">→</span>
+        <span class="node">crecimiento</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SISTEMA D.A.S. — CICLO DE DIAGNÓSTICO -->
+  <section id="sistema">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">El D.A.S. — Digital Acquisition System</h2>
+        <p class="das-kicker">No es una lista de servicios. Es un sistema de <b>diagnóstico y evolución</b>: cada fase existe para responder una pregunta concreta sobre el negocio.</p>
+        <div class="das-loop-line">
+          <b>Diagnosticar</b><span class="sep">→</span>
+          <b>Identificar cuello de botella</b><span class="sep">→</span>
+          <b>Intervenir</b><span class="sep">→</span>
+          <b>Medir</b><span class="sep">→</span>
+          <b>Aprender</b><span class="sep">→</span>
+          <b>Decidir siguiente movimiento</b>
+        </div>
+      </div>
+
+      <div class="das-tabs" id="dasTabs">
+        <button class="das-tab active" data-phase="1" type="button">
+          <span class="das-tab-num">01</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="das-tab-name">Digitalizar</span>
+        </button>
+        <button class="das-tab" data-phase="2" type="button">
+          <span class="das-tab-num">02</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          <span class="das-tab-name">Adquirir</span>
+        </button>
+        <button class="das-tab" data-phase="3" type="button">
+          <span class="das-tab-num">03</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="das-tab-name">Convertir</span>
+        </button>
+        <button class="das-tab" data-phase="4" type="button">
+          <span class="das-tab-num">04</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span class="das-tab-name">Optimizar</span>
+        </button>
+        <button class="das-tab" data-phase="5" type="button">
+          <span class="das-tab-num">05</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span class="das-tab-name">Escalar</span>
+        </button>
+        <button class="das-tab" data-phase="6" type="button">
+          <span class="das-tab-num">06</span>
+          <svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span class="das-tab-name">Automatizar</span>
+        </button>
+      </div>
+
+      <div class="das-panels" id="dasPanels">
+        <div class="das-panel active" data-phase="1">
+          <div class="das-panel-media"><img src="assets/img/fase-digitalizar.jpg" alt="Tienda online y presencia digital — fase Digitalizar" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">01</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Digitalizar</div>
+            <div class="das-q">¿Tenemos la infraestructura necesaria?</div>
+            <p class="das-desc">Redes sociales activas, tienda en línea y WhatsApp Business — la base para existir digitalmente.</p>
+          </div>
+        </div>
+        <div class="das-panel" data-phase="2">
+          <div class="das-panel-media"><img src="assets/img/fase-adquirir.jpg" alt="Redes sociales y producción de contenido — fase Adquirir" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">02</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>Adquirir</div>
+            <div class="das-q">¿Podemos generar oportunidades?</div>
+            <p class="das-desc">Pensamiento creativo puesto en producción: ideas convertidas en piezas que generan oportunidades reales.</p>
+          </div>
+        </div>
+        <div class="das-panel" data-phase="3">
+          <div class="das-panel-media"><img src="assets/img/fase-convertir.jpg" alt="Del interés a la compra — fase Convertir" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">03</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Convertir</div>
+            <div class="das-q">¿Podemos convertirlas en clientes?</div>
+            <p class="das-desc">El usuario sale de la red social hacia un canal más privado: pregunta, muestra interés, empieza la conversación de venta.</p>
+          </div>
+        </div>
+        <div class="das-panel" data-phase="4">
+          <div class="das-panel-media"><img src="assets/img/fase-optimizar.jpg" alt="Paneles de datos y métricas — fase Optimizar" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">04</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Optimizar</div>
+            <div class="das-q">¿Sabemos qué funciona y qué mejorar?</div>
+            <p class="das-desc">Cada experimento se mide con datos: qué funciona, qué no, y por qué.</p>
+          </div>
+        </div>
+        <div class="das-panel" data-phase="5">
+          <div class="das-panel-media"><img src="assets/img/fase-escalar.jpg" alt="Crecimiento sin romper el sistema — fase Escalar" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">05</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Escalar</div>
+            <div class="das-q">¿Podemos crecer sin romper el sistema?</div>
+            <p class="das-desc">Lo que ya funciona se replica en más canales, más audiencia, más presupuesto — sin romper el sistema.</p>
+          </div>
+        </div>
+        <div class="das-panel" data-phase="6">
+          <div class="das-panel-media"><img src="assets/img/fase-automatizar.jpg" alt="Procesos automatizados — fase Automatizar" loading="lazy"></div>
+          <div class="das-panel-text">
+            <div class="das-node">06</div>
+            <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Automatizar</div>
+            <div class="das-q">¿Podemos reducir el trabajo manual?</div>
+            <p class="das-desc">Los procesos que se repiten se automatizan, liberando tiempo para lo que sí requiere criterio humano.</p>
+          </div>
+        </div>
+      </div>
+      <p class="cycle-caption">No es una escalera de servicios. Es un ciclo: el sistema puede avanzar, repetirse o retroceder según lo que indique el diagnóstico.</p>
+    </div>
+  </section>
+
+  <!-- COMO PIENSA EL SISTEMA -->
+  <section id="protocolo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Cómo piensa el sistema</h2>
+        <p>El diagnóstico decide el punto de entrada. Un negocio no siempre empieza en Digitalizar: puede entrar directamente en Adquirir, Convertir u Optimizar.</p>
+      </div>
+      <div class="think-grid">
+        <div class="think-col">
+          <h3>La regla de movimiento</h3>
+          <div class="rule-list">
+            <div class="rule-row"><span class="rule-q">¿Infraestructura preparada?</span><span class="rule-cond">No</span><span class="rule-phase">Digitalizar</span></div>
+            <div class="rule-row"><span class="rule-q">¿Generamos oportunidades?</span><span class="rule-cond">No</span><span class="rule-phase">Adquirir</span></div>
+            <div class="rule-row"><span class="rule-q">¿Convertimos oportunidades?</span><span class="rule-cond">No</span><span class="rule-phase">Convertir</span></div>
+            <div class="rule-row"><span class="rule-q">¿Sabemos qué funciona?</span><span class="rule-cond">No</span><span class="rule-phase">Optimizar</span></div>
+            <div class="rule-row"><span class="rule-q">¿Existe oportunidad de crecer?</span><span class="rule-cond">Sí</span><span class="rule-phase">Escalar</span></div>
+            <div class="rule-row"><span class="rule-q">¿Existe trabajo repetitivo?</span><span class="rule-cond">Sí</span><span class="rule-phase">Automatizar</span></div>
+          </div>
+        </div>
+        <div class="think-col">
+          <h3>El protocolo universal</h3>
+          <ol class="protocol-list">
+            <li><span class="protocol-num">01</span><div class="protocol-body"><b>Contexto</b><span>¿Qué está pasando?</span></div></li>
+            <li><span class="protocol-num">02</span><div class="protocol-body"><b>Problema</b><span>¿Qué está impidiendo avanzar?</span></div></li>
+            <li><span class="protocol-num">03</span><div class="protocol-body"><b>Hipótesis</b><span>¿Qué creemos que lo está causando?</span></div></li>
+            <li><span class="protocol-num">04</span><div class="protocol-body"><b>Experimento</b><span>¿Qué haremos para comprobarlo?</span></div></li>
+            <li><span class="protocol-num">05</span><div class="protocol-body"><b>Ejecución</b><span>Implementamos.</span></div></li>
+            <li><span class="protocol-num">06</span><div class="protocol-body"><b>Datos</b><span>Medimos.</span></div></li>
+            <li><span class="protocol-num">07</span><div class="protocol-body"><b>Aprendizaje</b><span>¿Qué descubrimos?</span></div></li>
+            <li><span class="protocol-num">08</span><div class="protocol-body"><b>Decisión</b><span>¿Qué hacemos ahora?</span></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTICOS EN CURSO — oculto hasta tener casos reales documentados.
+       Reactivar quitando este comentario cuando existan 1-2 diagnósticos reales para mostrar. -->
+  <!--
+  <section id="caso">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Diagnósticos en curso</h2>
+        <p>Dos negocios están actualmente dentro del D.A.S. Esta sección se completa con el detalle real de cada diagnóstico en cuanto esté documentado.</p>
+      </div>
+      <div class="diag-grid">
+        <div class="diag-card">
+          <span class="flow-label">Diagnóstico 01</span>
+          <div class="diag-row"><span>Sector</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Diagnóstico inicial</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Fase de entrada</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Próximo movimiento</span><span>— pendiente —</span></div>
+        </div>
+        <div class="diag-card">
+          <span class="flow-label">Diagnóstico 02</span>
+          <div class="diag-row"><span>Sector</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Diagnóstico inicial</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Fase de entrada</span><span>— pendiente —</span></div>
+          <div class="diag-row"><span>Próximo movimiento</span><span>— pendiente —</span></div>
+        </div>
+      </div>
+      <p class="diag-note">Preferimos mostrar diagnósticos reales en curso, en lugar de testimonios genéricos. Es más coherente con un sistema que se apoya en datos, no en promesas.</p>
+    </div>
+  </section>
+  -->
+
+  <!-- PARA QUIEN -->
+  <section id="para-quien">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Para quién existe AURENIX</h2>
+      </div>
+      <div class="who-grid">
+        <ul class="who-traits">
+          <li><span>Rol</span><span>Dueño, fundador o responsable de crecimiento</span></li>
+          <li><span>Momento</span><span>Ya vende, aún sin sistema digital</span></li>
+          <li><span>Canal actual</span><span>WhatsApp, redes, referidos</span></li>
+          <li><span>Necesidad</span><span>Predecibilidad, no más tráfico</span></li>
+        </ul>
+        <div class="who-copy">
+          <p>No buscamos crear negocios desde cero. Buscamos <strong>digitalizar y potenciar negocios que ya tienen una base real</strong>: producto validado, capacidad operativa y algo de tracción comercial.</p>
+          <p>No está buscando aprender marketing. Está buscando resolver una pregunta muy concreta: <strong>¿de dónde van a salir mis próximos clientes?</strong></p>
+          <p>Por eso el D.A.S. no promete duplicar ventas ni garantizar resultados. Promete algo más defendible: <strong>construir el sistema, medirlo y optimizarlo</strong> para mejorar continuamente la adquisición.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSICIONAMIENTO -->
+  <section id="posicionamiento">
+    <div class="wrap">
+      <p class="lead-statement">AURENIX no entrega campañas, páginas o automatizaciones. <strong>Entrega sistemas capaces de aprender y evolucionar.</strong> Las páginas, campañas y automatizaciones son solo componentes.</p>
+      <div class="statements">
+        <p class="statement">No es publicidad. <b>Es adquisición.</b></p>
+        <p class="statement">No es una tienda. <b>Es un sistema para vender.</b></p>
+        <p class="statement">No optimizamos campañas. <b>Optimizamos sistemas.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO EMPEZAMOS -->
+  <section id="empezamos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Qué pasa si nos escribes</h2>
+        <p>Cuatro pasos, sin letra pequeña. Así se ve el proceso desde el primer contacto.</p>
+      </div>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg></div>
+          <div class="step-title">01 · Diagnóstico</div>
+          <div class="step-desc">Conversamos sobre tu negocio y ubicamos el cuello de botella actual. Sin costo.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
+          <div class="step-title">02 · Propuesta del sistema</div>
+          <div class="step-desc">Te mostramos qué fases del D.A.S. necesitas activar primero y por qué.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+          <div class="step-title">03 · Implementación</div>
+          <div class="step-desc">Construimos la infraestructura, las campañas o las automatizaciones necesarias.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="step-title">04 · Seguimiento</div>
+          <div class="step-desc">Medimos, ajustamos y documentamos cada aprendizaje del sistema.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <!-- ⚠ Reemplaza 573194639707 en los 3 enlaces "js-whatsapp" de este archivo por el número real de WhatsApp de AURENIX (código de país + número, sin + ni espacios, ej: 573001234567) antes de publicar. -->
+  <section id="contacto" class="final-cta">
+    <div class="wrap">
+      <h2>Convierte tu capacidad de vender en un sistema para adquirir clientes.</h2>
+      <div class="row">
+        <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
+        <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20agendar%20una%20llamada%20con%20AURENIX" class="btn btn-ghost js-whatsapp" target="_blank" rel="noopener">Agendar una llamada</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="mark">
+      <span class="mark-name">AURE<span>NIX</span></span>
+      <span class="mark-tag">D.A.S. — Digital Acquisition System</span>
+    </div>
+    <div class="footer-links">
+      <a href="#sistema">Cómo funciona</a>
+      <a href="#para-quien">Para quién</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:20px;">
+    <span class="footer-copy">© 2026 AURENIX. Sistema de adquisición digital.</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // D.A.S.: pestañas clicables — todas las fases visibles, sin depender del scroll
+  (function(){
+    var tabs = document.querySelectorAll('.das-tab');
+    if (!tabs.length) return;
+    var panels = document.querySelectorAll('.das-panel');
+
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var phase = tab.getAttribute('data-phase');
+        tabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
+        panels.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-phase') === phase); });
+      });
+    });
+  })();
+
+  // Ambient glow that warms up as you scroll through the page
+  (function(){
+    var glowWarm = document.getElementById('glowWarm');
+    var glowCool = document.getElementById('glowCool');
+    if(!glowWarm || !glowCool) return;
+    var ticking = false;
+    function update(){
+      var doc = document.documentElement;
+      var scrollTop = window.scrollY || doc.scrollTop;
+      var max = doc.scrollHeight - window.innerHeight;
+      var progress = max > 0 ? Math.min(Math.max(scrollTop / max, 0), 1) : 0;
+      glowWarm.style.opacity = progress;
+      glowCool.style.opacity = 1 - progress;
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive:true });
+    update();
+  })();
+
+  // Fondo: usuarios llegando desde distintos puntos y siendo atraídos hacia AURENIX
+  (function(){
+    var canvas = document.getElementById('bgCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0;
+
+    function resizeCanvas(){
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    var markEl = document.querySelector('.mark-name');
+    var attractor = { x: 90, y: 30 };
+    function updateAttractor(){
+      if (markEl){
+        var rect = markEl.getBoundingClientRect();
+        attractor.x = rect.left + rect.width / 2;
+        attractor.y = rect.top + rect.height / 2;
+      }
+    }
+
+    window.addEventListener('resize', function(){ resizeCanvas(); updateAttractor(); });
+    resizeCanvas();
+    updateAttractor();
+
+    function rand(min, max){ return min + Math.random() * (max - min); }
+
+    var COUNT = 32;
+    var particles = [];
+
+    function resetParticle(p, anywhere){
+      if (anywhere){
+        p.x = Math.random() * W;
+        p.y = Math.random() * H;
+      } else {
+        var edge = Math.floor(Math.random() * 4);
+        var pad = 40;
+        if (edge === 0){ p.x = -pad; p.y = Math.random() * H; }
+        else if (edge === 1){ p.x = W + pad; p.y = Math.random() * H; }
+        else if (edge === 2){ p.x = Math.random() * W; p.y = -pad; }
+        else { p.x = Math.random() * W; p.y = H + pad; }
+      }
+      p.vx = rand(-6, 6);
+      p.vy = rand(-6, 6);
+      p.r = rand(1.5, 2.4);
+      p.state = 'drift';
+      p.glow = 0;
+      p.life = 0;
+    }
+
+    for (var i = 0; i < COUNT; i++){
+      var p = {};
+      resetParticle(p, true);
+      particles.push(p);
+    }
+
+    var lastActivate = 0;
+
+    function step(dt, elapsed){
+      if (elapsed - lastActivate > 0.65){
+        lastActivate = elapsed;
+        var candidates = [];
+        for (var c = 0; c < particles.length; c++){
+          if (particles[c].state === 'drift') candidates.push(particles[c]);
+        }
+        if (candidates.length){
+          var chosen = candidates[Math.floor(Math.random() * candidates.length)];
+          chosen.state = 'attract';
+          chosen.speed = rand(70, 130);
+        }
+      }
+
+      for (var j = 0; j < particles.length; j++){
+        var pt = particles[j];
+        if (pt.state === 'drift'){
+          pt.x += pt.vx * dt;
+          pt.y += pt.vy * dt;
+          pt.vx += rand(-3, 3) * dt;
+          pt.vy += rand(-3, 3) * dt;
+          pt.vx = Math.max(-10, Math.min(10, pt.vx));
+          pt.vy = Math.max(-10, Math.min(10, pt.vy));
+          if (pt.x < -80 || pt.x > W + 80 || pt.y < -80 || pt.y > H + 80) resetParticle(pt, false);
+        } else if (pt.state === 'attract'){
+          var dx = attractor.x - pt.x, dy = attractor.y - pt.y;
+          var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          pt.x += (dx / dist) * pt.speed * dt;
+          pt.y += (dy / dist) * pt.speed * dt;
+          pt.glow = Math.min(1, pt.glow + dt * 2.4);
+          if (dist < 16){
+            pt.state = 'arrived';
+            pt.life = 0;
+          }
+        } else if (pt.state === 'arrived'){
+          pt.life += dt;
+          pt.glow = Math.max(0, 1 - pt.life * 2.2);
+          if (pt.life > 0.55) resetParticle(pt, false);
+        }
+      }
+    }
+
+    function drawUser(x, y, size, color){
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y - size * 0.55, size * 0.42, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x, y + size * 0.18, size * 0.62, Math.PI, 0, false);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      for (var k = 0; k < particles.length; k++){
+        var pt = particles[k];
+        if (pt.state === 'drift'){
+          drawUser(pt.x, pt.y, pt.r * 2.3, 'rgba(142,152,167,0.32)');
+        } else {
+          var g = pt.glow;
+          var rr = Math.round(142 + (201 - 142) * g);
+          var gg = Math.round(152 + (162 - 152) * g);
+          var bb = Math.round(167 + (39 - 167) * g);
+          var color = 'rgba(' + rr + ',' + gg + ',' + bb + ',' + (0.4 + 0.55 * g) + ')';
+          drawUser(pt.x, pt.y, (pt.r + g * 1.4) * 2.3, color);
+        }
+      }
+    }
+
+    var lastT = 0;
+    function loop(t){
+      requestAnimationFrame(loop);
+      var now = (t || 0) / 1000;
+      var dt = lastT ? Math.min(now - lastT, 0.05) : 0.016;
+      lastT = now;
+      if (!reduceMotion) step(dt, now);
+      draw();
+    }
+
+    if (reduceMotion){ draw(); } else { requestAnimationFrame(loop); }
+  })();
+</script>
+
+</body>
+</html>

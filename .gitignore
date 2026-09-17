@@ -1,0 +1,18 @@
+# Archivos fuente originales (ya procesados en assets/img/, no se necesitan para el sitio publicado)
+clientes.jpg
+imagenfeed.jpg
+oficialprimeraseccion.jpg
+tienaonline.jpg
+adquirir.jpg
+convertir.jpg
+optimizar.jpg
+escalar.jpg
+automatizar.jpg
+Dasfondo.jpg
+
+# Versiones viejas / archivos que no son parte del sitio
+aurenix-v3.html
+Sitio web premium AURENIX - Sistema de adquisición digital - Claude.html
+
+# Sistema
+.DS_Store
