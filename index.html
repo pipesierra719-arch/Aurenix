@@ -151,6 +151,8 @@
   .nav-toggle{ display:none; }
 
   .btn{
+    -webkit-appearance:none;
+    appearance:none;
     display:inline-flex;
     align-items:center;
     gap:8px;
@@ -759,6 +761,127 @@
   .founder-bio{ margin-top:16px; font-size:15px; color:var(--titanium-hover); line-height:1.6; }
   .founder-tags{ margin-top:14px; font-size:13px; color:var(--titanium); letter-spacing:0.02em; }
 
+  /* ---------- MODAL: AGENDAR UNA LLAMADA ---------- */
+  /* Flujo: formulario de contexto → revisión → calendario (Calendly embebido) → confirmación */
+  .qual-modal{ position:fixed; inset:0; z-index:200; display:none; }
+  .qual-modal.open{ display:block; }
+  .qual-backdrop{
+    position:absolute; inset:0;
+    background:rgba(11,13,16,0.82);
+    backdrop-filter:blur(3px);
+    border:none; padding:0; margin:0; cursor:pointer;
+  }
+  .qual-dialog{
+    position:relative;
+    z-index:1;
+    max-width:640px;
+    margin:5vh auto;
+    max-height:90vh;
+    overflow-y:auto;
+    background:var(--graphite);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:44px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .qual-close{
+    position:absolute;
+    top:16px; right:16px;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--obsidian);
+    color:var(--titanium-hover);
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .qual-close:hover{ border-color:var(--titanium); color:var(--ice); }
+
+  .qual-step{ display:none; }
+  .qual-step.active{ display:block; }
+
+  .qual-dialog h3{
+    font-size:clamp(20px, 3vw, 26px);
+    color:var(--ice);
+    max-width:480px;
+    padding-right:24px;
+  }
+  .qual-intro{
+    margin-top:14px;
+    font-size:14.5px;
+    color:var(--titanium-hover);
+    line-height:1.6;
+    max-width:520px;
+  }
+
+  .qual-field{ margin-top:22px; }
+  .qual-field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--titanium-hover);
+    margin-bottom:8px;
+  }
+  .qual-field input[type="text"],
+  .qual-field input[type="email"],
+  .qual-field input[type="tel"],
+  .qual-field select,
+  .qual-field textarea{
+    width:100%;
+    background:var(--obsidian);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:11px 14px;
+    color:var(--ice);
+    font-family:'Manrope', sans-serif;
+    font-size:14.5px;
+    transition:border-color .18s ease;
+  }
+  .qual-field input:focus,
+  .qual-field select:focus,
+  .qual-field textarea:focus{ outline:none; border-color:var(--gold); }
+  .qual-field textarea{ resize:vertical; min-height:72px; }
+  .qual-field.error input,
+  .qual-field.error select,
+  .qual-field.error textarea{ border-color:#C9622A; }
+  .qual-field select{ appearance:none; -webkit-appearance:none; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%238E98A7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'); background-repeat:no-repeat; background-position:right 12px center; background-size:16px; }
+
+  .qual-check-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    margin-top:8px;
+  }
+  .qual-check{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--titanium-hover); }
+  .qual-check input{ accent-color:var(--gold); width:16px; height:16px; flex:none; }
+
+  .qual-row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+  .qual-error-summary{
+    display:none;
+    margin-top:20px;
+    padding:12px 14px;
+    border:1px solid rgba(201,98,42,0.4);
+    border-radius:8px;
+    background:rgba(201,98,42,0.08);
+    color:#E0B190;
+    font-size:13.5px;
+  }
+  .qual-error-summary.show{ display:block; }
+
+  .qual-actions{ margin-top:28px; }
+
+  .qual-step-calendar{ min-height:600px; }
+  #calendlyInline{ min-width:280px; height:580px; }
+  .qual-calendar-fallback{ padding:32px 0; color:var(--titanium); font-size:14px; }
+
+  @media (max-width: 640px){
+    .qual-dialog{ margin:0; max-height:100vh; height:100%; border-radius:0; padding:28px 20px; }
+    .qual-row2, .qual-check-grid{ grid-template-columns:1fr; }
+  }
+
   /* ---------- COMO EMPEZAMOS ---------- */
   .steps-row{
     display:grid;
@@ -774,6 +897,14 @@
     right:6%;
     height:1px;
     background:var(--line);
+  }
+  .steps-row-5{
+    grid-template-columns:repeat(3, 1fr);
+    gap:44px 32px;
+  }
+  .steps-row-5::before{ display:none; }
+  @media (max-width: 860px){
+    .steps-row-5{ grid-template-columns:1fr 1fr; }
   }
   .step-item{
     position:relative;
@@ -936,8 +1067,8 @@
         <p class="lead">AURENIX diseña y construye el sistema digital que conecta tu presencia online, la adquisición de clientes y el proceso de venta — para que tu negocio deje de depender únicamente de publicaciones, referidos o contactos ocasionales.</p>
         <p class="lead-strong">No necesitas más canales. Necesitas que trabajen juntos.</p>
         <div class="hero-actions">
-          <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
-          <a href="#" class="btn btn-ghost js-calendly" target="_blank" rel="noopener">Agendar una llamada</a>
+          <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20conocer%20c%C3%B3mo%20AURENIX%20podr%C3%ADa%20ayudar%20a%20mi%20negocio%20a%20construir%20un%20sistema%20de%20adquisici%C3%B3n." class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
+          <button type="button" class="btn btn-ghost js-book-call">Agendar una llamada</button>
         </div>
         <a href="#sistema" class="link-quiet hero-more">Ver cómo funciona ↓</a>
       </div>
@@ -1260,10 +1391,30 @@
             <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <div class="faq-answer">
-            <p>No existe un precio único porque no todos los negocios necesitan construir el mismo sistema.</p>
-            <p>Los proyectos de implementación parten desde $3.500.000 COP y el valor final depende del alcance, infraestructura existente y fases necesarias.</p>
-            <p>El diagnóstico inicial tiene un valor de $350.000 COP y puede descontarse del proyecto de implementación si el cliente contrata dentro de los 30 días siguientes.</p>
-            <p>La inversión publicitaria y herramientas de terceros se pagan por separado.</p>
+            <p>El Diagnóstico AURENIX tiene un valor de $350.000 COP.</p>
+            <p>Las implementaciones parten desde $3.500.000 COP, dependiendo del alcance.</p>
+            <p>Los servicios de Growth / Optimización están entre $1.500.000 y $2.500.000 COP mensuales, según el alcance.</p>
+            <p>La inversión publicitaria, software de terceros y desarrollos extraordinarios se cotizan por separado.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿La primera llamada tiene algún costo?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>No. La primera conversación es un Descubrimiento AURENIX de 30 minutos sin costo.</p>
+            <p>Su objetivo es entender tu negocio, identificar el principal cuello de botella y determinar si tiene sentido avanzar.</p>
+            <p>Si se requiere un análisis más profundo, podemos avanzar al Diagnóstico AURENIX, cuyo valor es de $350.000 COP.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué incluye el Diagnóstico AURENIX?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Analizamos el estado actual del negocio: infraestructura digital, adquisición, conversión y principales cuellos de botella.</p>
+            <p>A partir de esa información construimos hipótesis, prioridades y un roadmap de acción.</p>
+            <p>Tiene una duración estimada de 3–5 días hábiles. Si contratas la implementación dentro de los 30 días siguientes, su valor se acredita contra el proyecto.</p>
           </div>
         </details>
         <details class="faq-item">
@@ -1271,8 +1422,7 @@
             <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <div class="faq-answer">
-            <p>Una implementación inicial normalmente toma entre 3 y 6 semanas.</p>
-            <p>El tiempo depende del punto de partida, el alcance y las fases necesarias.</p>
+            <p>Una implementación típica puede tomar entre 3 y 6 semanas, dependiendo del alcance, complejidad y recursos necesarios.</p>
             <p>No buscamos esperar meses para empezar a medir. Construimos, lanzamos, medimos y mejoramos progresivamente.</p>
           </div>
         </details>
@@ -1281,9 +1431,9 @@
             <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <div class="faq-answer">
-            <p>AURENIX no promete una cantidad determinada de ventas.</p>
-            <p>El trabajo se basa en un proceso medible: Diagnóstico → Hipótesis → Implementación → Medición → Aprendizaje → Decisión.</p>
-            <p>Si una hipótesis no funciona, utilizamos la evidencia para decidir qué cambiar, detener o probar después.</p>
+            <p>AURENIX no garantiza una cantidad específica de ventas o clientes.</p>
+            <p>Trabajamos mediante diagnóstico, hipótesis, implementación, medición y aprendizaje.</p>
+            <p>Los datos y la evidencia determinan qué debemos mantener, modificar o descartar.</p>
           </div>
         </details>
         <details class="faq-item">
@@ -1291,8 +1441,8 @@
             <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <div class="faq-answer">
-            <p>Principalmente con negocios que ya tienen una oferta definida, algún nivel de ventas y capacidad para atender nuevos clientes.</p>
-            <p>AURENIX no busca simplemente crear presencia digital. Busca construir un sistema de adquisición medible.</p>
+            <p>Trabajamos principalmente con negocios que tienen una oferta definida, cierta capacidad operativa, algunas ventas existentes y disposición para invertir en construir un sistema de adquisición medible.</p>
+            <p>AURENIX no se plantea simplemente como un servicio de publicación de contenido ni como una promesa de resultados garantizados.</p>
           </div>
         </details>
         <details class="faq-item">
@@ -1338,33 +1488,38 @@
     </div>
   </section>
 
-  <!-- COMO EMPEZAMOS -->
+  <!-- QUÉ SUCEDE DESPUÉS DE CONTACTARNOS -->
   <section id="empezamos">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="eyebrow-free-heading">Qué pasa si nos escribes</h2>
-        <p>Cuatro pasos, sin letra pequeña. Así se ve el proceso desde el primer contacto.</p>
+        <h2 class="eyebrow-free-heading">Qué sucede después de contactarnos</h2>
+        <p>Un proceso de evaluación, no una llamada de ventas genérica.</p>
       </div>
-      <div class="steps-row">
-        <div class="step-item">
-          <div class="step-num"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg></div>
-          <div class="step-title">01 · Diagnóstico</div>
-          <div class="step-desc">Conversamos sobre tu negocio y ubicamos el cuello de botella actual. Sin costo.</div>
-        </div>
+      <div class="steps-row steps-row-5">
         <div class="step-item">
           <div class="step-num"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
-          <div class="step-title">02 · Propuesta del sistema</div>
-          <div class="step-desc">Te mostramos qué fases del D.A.S. necesitas activar primero y por qué.</div>
+          <div class="step-title">01 · Conocemos tu negocio</div>
+          <div class="step-desc">Completas algunas preguntas para que podamos entender qué vendes, cómo consigues clientes y dónde está el problema.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.2" y2="16.2"/></svg></div>
+          <div class="step-title">02 · Analizamos tu situación</div>
+          <div class="step-desc">Revisamos la información antes de la llamada para llegar con contexto.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="step-title">03 · Descubrimiento AURENIX — 30 min</div>
+          <div class="step-desc">Identificamos el principal cuello de botella y determinamos si tiene sentido trabajar juntos. Esta primera conversación no tiene costo.</div>
         </div>
         <div class="step-item">
           <div class="step-num"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
-          <div class="step-title">03 · Implementación</div>
-          <div class="step-desc">Construimos la infraestructura, las campañas o las automatizaciones necesarias.</div>
+          <div class="step-title">04 · Diagnóstico AURENIX (si aplica)</div>
+          <div class="step-desc">Si existe una oportunidad real, avanzamos a un análisis formal: $350.000 COP, 3–5 días hábiles. Incluye hipótesis, prioridades y roadmap.</div>
         </div>
         <div class="step-item">
           <div class="step-num"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <div class="step-title">04 · Seguimiento</div>
-          <div class="step-desc">Medimos, ajustamos y documentamos cada aprendizaje del sistema.</div>
+          <div class="step-title">05 · Construimos</div>
+          <div class="step-desc">Si existe encaje, definimos el alcance, la inversión y el plan de implementación.</div>
         </div>
       </div>
     </div>
@@ -1376,13 +1531,133 @@
       <h2>¿Listo para construir un sistema que consiga clientes?</h2>
       <p class="final-cta-sub">No necesitas añadir más canales. Necesitas que los que ya tienes trabajen juntos.</p>
       <div class="row">
-        <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
-        <a href="#" class="btn btn-ghost js-calendly" target="_blank" rel="noopener">Agendar una llamada</a>
+        <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20conocer%20c%C3%B3mo%20AURENIX%20podr%C3%ADa%20ayudar%20a%20mi%20negocio%20a%20construir%20un%20sistema%20de%20adquisici%C3%B3n." class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
+        <button type="button" class="btn btn-ghost js-book-call">Agendar una llamada</button>
       </div>
     </div>
   </section>
 
 </main>
+
+<!-- MODAL: AGENDAR UNA LLAMADA — formulario de contexto → revisión → calendario → confirmación -->
+<div class="qual-modal" id="qualModal" aria-hidden="true">
+  <button class="qual-backdrop" data-close aria-label="Cerrar"></button>
+  <div class="qual-dialog" role="dialog" aria-modal="true" aria-labelledby="qualTitle">
+    <button class="qual-close" data-close aria-label="Cerrar">×</button>
+
+    <!-- PASO 1: FORMULARIO -->
+    <div class="qual-step active" data-step="form">
+      <h3 id="qualTitle">Antes de agendar, conozcamos tu negocio.</h3>
+      <p class="qual-intro">Queremos que la conversación tenga contexto desde el primer minuto. Cuéntanos brevemente qué haces, cómo consigues clientes actualmente y qué quieres mejorar. Revisaremos esta información antes de la llamada para llegar con una perspectiva inicial sobre tu situación.</p>
+
+      <form id="qualForm" novalidate>
+        <div class="qual-row2">
+          <div class="qual-field">
+            <label for="qfNombre">Nombre</label>
+            <input type="text" id="qfNombre" name="nombre" data-required="true" autocomplete="name">
+          </div>
+          <div class="qual-field">
+            <label for="qfEmpresa">Empresa / negocio</label>
+            <input type="text" id="qfEmpresa" name="empresa" data-required="true" autocomplete="organization">
+          </div>
+        </div>
+        <div class="qual-field">
+          <label for="qfWeb">Sitio web o Instagram</label>
+          <input type="text" id="qfWeb" name="web" placeholder="instagram.com/tunegocio">
+        </div>
+        <div class="qual-row2">
+          <div class="qual-field">
+            <label for="qfEmail">Correo electrónico</label>
+            <input type="email" id="qfEmail" name="email" data-required="true" autocomplete="email">
+          </div>
+          <div class="qual-field">
+            <label for="qfWhatsapp">WhatsApp</label>
+            <input type="tel" id="qfWhatsapp" name="whatsapp" data-required="true" autocomplete="tel" placeholder="+57...">
+          </div>
+        </div>
+
+        <div class="qual-field">
+          <label for="qfQueVende">¿Qué vende tu negocio?</label>
+          <textarea id="qfQueVende" name="quevende" data-required="true"></textarea>
+        </div>
+
+        <div class="qual-field" id="qualChannelsField">
+          <label>¿Cómo consigues clientes actualmente?</label>
+          <div class="qual-check-grid">
+            <label class="qual-check"><input type="checkbox" name="canales" value="Referidos"> Referidos</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Instagram"> Instagram</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Facebook"> Facebook</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="TikTok"> TikTok</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="WhatsApp"> WhatsApp</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Publicidad"> Publicidad</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Google"> Google</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Marketplace"> Marketplace</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Tienda física"> Tienda física</label>
+            <label class="qual-check"><input type="checkbox" name="canales" value="Otro"> Otro</label>
+          </div>
+        </div>
+
+        <div class="qual-field">
+          <label for="qfProblema">¿Cuál es actualmente tu principal problema para conseguir más clientes?</label>
+          <textarea id="qfProblema" name="problema" data-required="true"></textarea>
+        </div>
+
+        <div class="qual-field">
+          <label for="qfVentas">Rango aproximado de ventas mensuales</label>
+          <select id="qfVentas" name="ventas" data-required="true">
+            <option value="" selected disabled>Selecciona una opción</option>
+            <option value="Menos de $5M COP">Menos de $5M COP</option>
+            <option value="$5M–$10M COP">$5M–$10M COP</option>
+            <option value="$10M–$30M COP">$10M–$30M COP</option>
+            <option value="$30M–$50M COP">$30M–$50M COP</option>
+            <option value="Más de $50M COP">Más de $50M COP</option>
+            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+          </select>
+        </div>
+
+        <div class="qual-field">
+          <label for="qfObjetivo">¿Qué quieres conseguir durante los próximos 3–6 meses?</label>
+          <textarea id="qfObjetivo" name="objetivo"></textarea>
+        </div>
+
+        <div class="qual-field">
+          <label for="qfPrioridad">¿Qué te gustaría mejorar primero?</label>
+          <textarea id="qfPrioridad" name="prioridad"></textarea>
+        </div>
+
+        <p class="qual-error-summary" id="qualErrorSummary" role="alert">Completa los campos obligatorios para continuar.</p>
+
+        <div class="qual-actions">
+          <button type="submit" class="btn btn-primary">Continuar al calendario</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- PASO 2: REVISIÓN -->
+    <div class="qual-step" data-step="review">
+      <h3>Información recibida.</h3>
+      <p class="qual-intro">Ya tenemos una primera perspectiva de tu negocio. Ahora selecciona el horario que mejor te funcione para conversar.</p>
+      <div class="qual-actions">
+        <button type="button" class="btn btn-primary" id="qualToCalendar">Seleccionar horario</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: CALENDARIO -->
+    <div class="qual-step qual-step-calendar" data-step="calendar">
+      <h3>Descubrimiento AURENIX — 30 min</h3>
+      <div id="calendlyInline"></div>
+    </div>
+
+    <!-- PASO 4: CONFIRMACIÓN -->
+    <div class="qual-step" data-step="booked">
+      <h3>Tu sesión está agendada.</h3>
+      <p class="qual-intro">Revisaremos la información que compartiste antes de la conversación para llegar con contexto y aprovechar mejor los 30 minutos.</p>
+      <div class="qual-actions">
+        <button type="button" class="btn btn-ghost" data-close>Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap footer-row">
@@ -1402,6 +1677,9 @@
   </div>
 </footer>
 
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
 <script>
   // ---------------------------------------------------------------
   // CONFIGURACIÓN: URL de Calendly (o el calendario que uses).
@@ -1409,21 +1687,167 @@
   // Equivalente a una variable de entorno (NEXT_PUBLIC_CALENDLY_URL) si en el futuro
   // este sitio migra a un framework con build step (Next.js, Vite, etc.) — por ahora,
   // al ser HTML/JS estático sin build, este es el único punto de configuración.
-  // Mientras quede vacío, los botones "Agendar una llamada" no harán nada al hacer clic.
   // ---------------------------------------------------------------
   var CALENDLY_URL = "https://calendly.com/aurenixdas/30min";
 
+  // ---------------------------------------------------------------
+  // Analytics: hook liviano y agnóstico de proveedor.
+  // Empuja a window.dataLayer (compatible con GA4/GTM) si en algún momento
+  // se instala; mientras tanto solo deja rastro en consola. No requiere
+  // ninguna cuenta de analytics para funcionar ni rompe nada si no existe.
+  // ---------------------------------------------------------------
+  function trackEvent(name, data){
+    window.dataLayer = window.dataLayer || [];
+    var payload = { event: name };
+    if (data) { for (var k in data) { payload[k] = data[k]; } }
+    window.dataLayer.push(payload);
+    if (window.console && console.debug) console.debug('[AURENIX event]', name, data || {});
+  }
+
+  // cta_build_system_click — en los botones "Construir mi sistema" (WhatsApp directo)
+  document.querySelectorAll('.js-whatsapp').forEach(function(a){
+    a.addEventListener('click', function(){ trackEvent('cta_build_system_click'); });
+  });
+
+  // ---------------------------------------------------------------
+  // MODAL "Agendar una llamada": Formulario → Revisión → Calendario → Confirmación
+  // ---------------------------------------------------------------
   (function(){
-    var calendlyLinks = document.querySelectorAll('.js-calendly');
-    if (!calendlyLinks.length) return;
-    calendlyLinks.forEach(function(a){
-      if (CALENDLY_URL) {
-        a.setAttribute('href', CALENDLY_URL);
-      } else {
-        a.addEventListener('click', function(e){
-          e.preventDefault();
-          console.info('[AURENIX] Falta configurar CALENDLY_URL en el <script> de index.html.');
+    var modal = document.getElementById('qualModal');
+    if (!modal) return;
+    var openTriggers = document.querySelectorAll('.js-book-call');
+    var closeTriggers = modal.querySelectorAll('[data-close]');
+    var steps = modal.querySelectorAll('.qual-step');
+    var lastFocused = null;
+
+    function showStep(name){
+      steps.forEach(function(s){ s.classList.toggle('active', s.getAttribute('data-step') === name); });
+    }
+
+    function openModal(){
+      lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      showStep('form');
+      trackEvent('cta_book_call_click');
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    openTriggers.forEach(function(btn){ btn.addEventListener('click', openModal); });
+    closeTriggers.forEach(function(el){ el.addEventListener('click', closeModal); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    // qualification_form_started — primera interacción real con el formulario
+    var form = document.getElementById('qualForm');
+    var startedFired = false;
+    form.addEventListener('focusin', function(){
+      if (!startedFired){ startedFired = true; trackEvent('qualification_form_started'); }
+    });
+
+    var errorSummary = document.getElementById('qualErrorSummary');
+    var channelsField = document.getElementById('qualChannelsField');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var valid = true;
+      var firstInvalid = null;
+
+      form.querySelectorAll('[data-required="true"]').forEach(function(field){
+        var wrap = field.closest('.qual-field');
+        var ok = (field.value || '').trim().length > 0;
+        if (wrap) wrap.classList.toggle('error', !ok);
+        if (!ok){ valid = false; if (!firstInvalid) firstInvalid = field; }
+      });
+
+      var channelBoxes = form.querySelectorAll('input[name="canales"]');
+      var anyChecked = Array.prototype.some.call(channelBoxes, function(cb){ return cb.checked; });
+      if (channelsField) channelsField.classList.toggle('error', !anyChecked);
+      if (!anyChecked){ valid = false; if (!firstInvalid && channelBoxes.length) firstInvalid = channelBoxes[0]; }
+
+      if (!valid){
+        if (errorSummary) errorSummary.classList.add('show');
+        if (firstInvalid && firstInvalid.focus) firstInvalid.focus();
+        return;
+      }
+      if (errorSummary) errorSummary.classList.remove('show');
+
+      // Construimos el mensaje de contexto. Este sitio es HTML estático sin backend propio,
+      // así que la forma real de que este contexto llegue a AURENIX antes de la llamada es
+      // enviarlo por WhatsApp (canal que ya usan). Si más adelante conectan un backend de
+      // formularios (Formspree, Airtable, etc.), este es el punto exacto a reemplazar.
+      var data = new FormData(form);
+      var canales = Array.prototype.filter.call(channelBoxes, function(cb){ return cb.checked; })
+        .map(function(cb){ return cb.value; }).join(', ') || '—';
+      var lines = [
+        'Nuevo contacto AURENIX (formulario de contexto):',
+        'Nombre: ' + (data.get('nombre') || ''),
+        'Empresa: ' + (data.get('empresa') || ''),
+        'Web/Instagram: ' + (data.get('web') || '—'),
+        'Correo: ' + (data.get('email') || ''),
+        'WhatsApp: ' + (data.get('whatsapp') || ''),
+        'Qué vende: ' + (data.get('quevende') || ''),
+        'Cómo consigue clientes: ' + canales,
+        'Problema principal: ' + (data.get('problema') || ''),
+        'Ventas mensuales aprox.: ' + (data.get('ventas') || '—'),
+        'Objetivo 3–6 meses: ' + (data.get('objetivo') || '—'),
+        'Prioridad: ' + (data.get('prioridad') || '—')
+      ];
+      var waUrl = 'https://wa.me/573194639707?text=' + encodeURIComponent(lines.join('\n'));
+
+      trackEvent('qualification_form_completed');
+      window.open(waUrl, '_blank', 'noopener');
+      showStep('review');
+    });
+
+    // Paso: revisión -> calendario
+    var toCalendarBtn = document.getElementById('qualToCalendar');
+    var calendlyContainer = document.getElementById('calendlyInline');
+    var calendlyLoaded = false;
+
+    function ensureCalendlyReady(cb, attempts){
+      attempts = attempts || 0;
+      if (window.Calendly){ cb(); return; }
+      if (attempts > 20){
+        // Calendly no cargó a tiempo (red lenta/bloqueada) — fallback: abrir en pestaña nueva
+        window.open(CALENDLY_URL, '_blank', 'noopener');
+        return;
+      }
+      setTimeout(function(){ ensureCalendlyReady(cb, attempts + 1); }, 200);
+    }
+
+    if (toCalendarBtn) {
+      toCalendarBtn.addEventListener('click', function(){
+        showStep('calendar');
+        trackEvent('calendar_opened');
+        if (calendlyLoaded) return;
+        if (!CALENDLY_URL){
+          calendlyContainer.innerHTML = '<p class="qual-calendar-fallback">Falta configurar el calendario. Escríbenos por WhatsApp mientras tanto.</p>';
+          return;
+        }
+        ensureCalendlyReady(function(){
+          window.Calendly.initInlineWidget({
+            url: CALENDLY_URL,
+            parentElement: calendlyContainer
+          });
+          calendlyLoaded = true;
         });
+      });
+    }
+
+    // call_booked — Calendly notifica vía postMessage cuando se agenda con éxito
+    window.addEventListener('message', function(e){
+      if (e.data && e.data.event === 'calendly.event_scheduled'){
+        trackEvent('call_booked');
+        showStep('booked');
       }
     });
   })();
