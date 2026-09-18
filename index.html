@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AURENIX — D.A.S. Digital Acquisition System</title>
-<meta name="description" content="AURENIX construye sistemas de adquisición digital para negocios que ya venden bien pero no tienen un canal predecible para conseguir nuevos clientes. Diagnosticamos, medimos y optimizamos con el D.A.S. — Digital Acquisition System.">
+<meta name="description" content="AURENIX convierte tu negocio en un sistema capaz de conseguir clientes: presencia online, adquisición y proceso de venta trabajando juntos, no como canales sueltos.">
 <meta name="theme-color" content="#0B0D10">
 
 <!-- Open Graph / WhatsApp / redes sociales -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AURENIX">
-<meta property="og:title" content="AURENIX — D.A.S. Digital Acquisition System">
-<meta property="og:description" content="Construimos sistemas para conseguir clientes: infraestructura, adquisición, conversión, datos y automatización en un solo sistema.">
+<meta property="og:title" content="AURENIX — Sistemas para conseguir clientes">
+<meta property="og:description" content="Convierte tu negocio en un sistema capaz de conseguir clientes de forma consistente y medible.">
 <meta property="og:image" content="assets/img/og-image.jpg">
 <meta property="og:locale" content="es_CO">
 
 <!-- Twitter / X card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AURENIX — D.A.S. Digital Acquisition System">
-<meta name="twitter:description" content="Construimos sistemas para conseguir clientes.">
+<meta name="twitter:title" content="AURENIX — Sistemas para conseguir clientes">
+<meta name="twitter:description" content="Convierte tu negocio en un sistema capaz de conseguir clientes de forma consistente y medible.">
 <meta name="twitter:image" content="assets/img/og-image.jpg">
 
 <!-- Favicon -->
@@ -227,6 +227,13 @@
     font-size:18px;
     color:var(--titanium-hover);
   }
+  .hero .lead-strong{
+    margin-top:16px;
+    max-width:520px;
+    font-size:17px;
+    font-weight:600;
+    color:var(--ice);
+  }
   .hero-actions{
     margin-top:40px;
     display:flex;
@@ -234,6 +241,7 @@
     gap:20px;
     flex-wrap:wrap;
   }
+  .hero-more{ margin-top:28px; display:inline-block; }
   .link-quiet{
     font-size:14.5px;
     color:var(--titanium);
@@ -243,22 +251,6 @@
     transition:color .18s ease, border-color .18s ease;
   }
   .link-quiet:hover{ color:var(--ice); border-color:var(--titanium-hover); }
-
-  .formula{
-    margin-top:88px;
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:10px 14px;
-    color:var(--titanium);
-    font-size:14px;
-    letter-spacing:0.01em;
-  }
-  .formula b{
-    color:var(--ice);
-    font-weight:600;
-  }
-  .formula .sep{ color:var(--gold); }
 
   /* ---------- SECTION SHELL ---------- */
   section{ padding:108px 0; border-top:1px solid var(--line); }
@@ -275,34 +267,19 @@
   }
 
   /* ---------- PROBLEMA ---------- */
-  .problem-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:64px;
-    align-items:start;
-  }
-  .problem-quote{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:clamp(24px, 3vw, 32px);
-    line-height:1.35;
-    color:var(--ice);
-    border-left:2px solid var(--gold);
-    padding-left:28px;
-  }
-  .problem-quote small{
-    display:block;
-    margin-top:20px;
-    font-family:'Manrope', sans-serif;
-    font-size:14px;
-    font-weight:600;
-    color:var(--titanium);
-  }
   .problem-list{
     list-style:none;
     margin:0; padding:0;
+    max-width:720px;
     display:flex;
     flex-direction:column;
     gap:16px;
+  }
+  .problem-close{
+    margin-top:32px;
+    max-width:640px;
+    font-size:16px;
+    color:var(--titanium-hover);
   }
   .problem-list li{
     display:flex;
@@ -403,16 +380,6 @@
     line-height:1.4;
   }
   .das-kicker b{ color:var(--ice); font-weight:600; }
-  .das-loop-line{
-    margin-top:18px;
-    font-size:14px;
-    color:var(--titanium);
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px 10px;
-  }
-  .das-loop-line .sep{ color:var(--gold); }
-  .das-loop-line b{ color:var(--ice); font-weight:600; }
 
   /* ---------- D.A.S.: PESTAÑAS + PANEL (todas las fases visibles a la vez) ---------- */
   #sistema{ position:relative; overflow:hidden; }
@@ -591,6 +558,13 @@
     font-weight:600;
   }
   .protocol-body span{ color:var(--titanium); font-size:13.5px; }
+  .protocol-close{
+    margin-top:48px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:17px;
+    color:var(--ice);
+    max-width:600px;
+  }
 
   /* ---------- DIAGNOSTICOS EN CURSO ---------- */
   .diag-grid{
@@ -622,56 +596,168 @@
   }
 
   /* ---------- PARA QUIEN ---------- */
-  .who-grid{
+  .who-compare{
     display:grid;
-    grid-template-columns:0.85fr 1.15fr;
-    gap:64px;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
   }
-  .who-traits{
+  .who-col h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ice);
+    margin-bottom:20px;
+  }
+  .who-col.no h3{ color:var(--titanium-hover); }
+  .who-check-list{
     list-style:none;
     margin:0; padding:0;
-    border-top:1px solid var(--line);
-  }
-  .who-traits li{
-    padding:16px 0;
-    border-bottom:1px solid var(--line);
-    font-size:15px;
-    color:var(--titanium-hover);
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-  }
-  .who-traits li span:first-child{ color:var(--ice); font-weight:500; }
-  .who-copy p{ color:var(--titanium-hover); font-size:16px; margin:0 0 18px; }
-  .who-copy strong{ color:var(--ice); font-weight:600; }
-
-  /* ---------- POSICIONAMIENTO / STATEMENTS ---------- */
-  .lead-statement{
-    font-size:19px;
-    color:var(--titanium-hover);
-    max-width:640px;
-    margin-bottom:52px;
-    line-height:1.55;
-  }
-  .lead-statement strong{ color:var(--ice); font-weight:600; }
-  .statements{
     display:flex;
     flex-direction:column;
-    gap:36px;
+    gap:16px;
   }
-  .statement{
+  .who-check-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-size:15px;
+    color:var(--titanium-hover);
+    line-height:1.5;
+  }
+  .who-mark{ flex:none; width:20px; height:20px; margin-top:1px; }
+  .who-mark svg{ width:100%; height:100%; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .who-col.yes .who-mark svg{ stroke:var(--gold); }
+  .who-col.no .who-mark svg{ stroke:var(--titanium); }
+  @media (max-width: 760px){
+    .who-compare{ grid-template-columns:1fr; gap:36px; }
+  }
+
+  /* ---------- PRECIOS ---------- */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+    margin-bottom:48px;
+  }
+  .price-card{
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--graphite);
+    padding:24px 20px;
+  }
+  .price-card h4{
     font-family:'Space Grotesk', sans-serif;
-    font-size:clamp(22px, 3.6vw, 34px);
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--titanium);
+    margin-bottom:14px;
+  }
+  .price-card .price{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:21px;
+    font-weight:600;
+    color:var(--ice);
     line-height:1.3;
+  }
+  .price-card .price small{
+    display:block;
+    margin-top:2px;
+    font-size:12px;
+    font-weight:500;
     color:var(--titanium);
   }
-  .statement b{
-    color:var(--ice);
-    font-weight:600;
+  .price-card .timeframe{
+    margin-top:12px;
+    font-size:13px;
+    color:var(--titanium);
   }
-  .statement:nth-child(1){ padding-left:0; }
-  .statement:nth-child(2){ padding-left:6%; }
-  .statement:nth-child(3){ padding-left:12%; }
+  .pricing-note{
+    font-size:13px;
+    color:var(--titanium);
+    max-width:680px;
+    margin-bottom:56px;
+    padding-bottom:56px;
+    border-bottom:1px solid var(--line);
+  }
+  @media (max-width: 860px){
+    .pricing-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 520px){
+    .pricing-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    border-top:1px solid var(--line);
+  }
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:22px 4px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--ice);
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:4px; }
+  .faq-chevron{
+    flex:none;
+    width:18px; height:18px;
+    stroke:var(--gold);
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    transition:transform .2s ease;
+  }
+  .faq-item[open] .faq-chevron{ transform:rotate(180deg); }
+  .faq-answer{
+    padding:0 4px 22px;
+    max-width:700px;
+  }
+  .faq-answer p{
+    margin:0 0 10px;
+    color:var(--titanium-hover);
+    font-size:15px;
+    line-height:1.65;
+  }
+  .faq-answer p:last-child{ margin-bottom:0; }
+
+  /* ---------- FUNDADOR ---------- */
+  .founder-card{
+    display:flex;
+    align-items:center;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .founder-avatar{
+    flex:none;
+    width:96px; height:96px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    background:var(--graphite);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .founder-avatar img{ width:100%; height:100%; object-fit:cover; }
+  .founder-avatar svg{ width:42px; height:42px; stroke:var(--titanium-hover); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .founder-info{ max-width:560px; }
+  .founder-name{ font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:var(--ice); }
+  .founder-role{ font-size:13.5px; color:var(--titanium); margin-top:2px; }
+  .founder-bio{ margin-top:16px; font-size:15px; color:var(--titanium-hover); line-height:1.6; }
+  .founder-tags{ margin-top:14px; font-size:13px; color:var(--titanium); letter-spacing:0.02em; }
 
   /* ---------- COMO EMPEZAMOS ---------- */
   .steps-row{
@@ -740,6 +826,12 @@
     max-width:640px;
     line-height:1.15;
   }
+  .final-cta-sub{
+    margin-top:20px;
+    font-size:16px;
+    color:var(--titanium-hover);
+    max-width:480px;
+  }
   .final-cta .row{
     margin-top:36px;
     display:flex;
@@ -801,9 +893,7 @@
     }
     .nav-toggle span{ width:20px; height:2px; background:var(--ice); border-radius:2px; }
 
-    .problem-grid, .who-grid, .think-grid, .diag-grid{ grid-template-columns:1fr; gap:40px; }
-    .statement:nth-child(2){ padding-left:3%; }
-    .statement:nth-child(3){ padding-left:6%; }
+    .think-grid, .diag-grid{ grid-template-columns:1fr; gap:40px; }
     .hero{ padding:150px 0 90px; }
     section{ padding:76px 0; }
   }
@@ -830,7 +920,7 @@
     <nav class="nav-links" id="navLinks">
       <a href="#sistema">Cómo funciona</a>
       <a href="#para-quien">Para quién</a>
-      <a href="#posicionamiento">Posicionamiento</a>
+      <a href="#faq">Precios &amp; FAQ</a>
       <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20hablar%20sobre%20mi%20sistema%20de%20adquisici%C3%B3n" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Hablemos</a>
     </nav>
   </div>
@@ -842,20 +932,14 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-inner">
-        <h1>Construimos sistemas para conseguir clientes.</h1>
-        <p class="lead">AURENIX conecta infraestructura, adquisición, conversión, datos y automatización en un solo sistema: el D.A.S. — Digital Acquisition System.</p>
+        <h1>Convierte tu negocio en un sistema capaz de conseguir clientes.</h1>
+        <p class="lead">AURENIX diseña y construye el sistema digital que conecta tu presencia online, la adquisición de clientes y el proceso de venta — para que tu negocio deje de depender únicamente de publicaciones, referidos o contactos ocasionales.</p>
+        <p class="lead-strong">No necesitas más canales. Necesitas que trabajen juntos.</p>
         <div class="hero-actions">
           <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
-          <a href="#sistema" class="link-quiet">Ver cómo funciona</a>
+          <a href="#" class="btn btn-ghost js-calendly" target="_blank" rel="noopener">Agendar una llamada</a>
         </div>
-      </div>
-      <div class="formula">
-        <span class="node"><b>Infraestructura</b></span><span class="sep">→</span>
-        <span class="node"><b>Tráfico</b></span><span class="sep">→</span>
-        <span class="node"><b>Ventas</b></span><span class="sep">→</span>
-        <span class="node"><b>Datos</b></span><span class="sep">→</span>
-        <span class="node"><b>Crecimiento</b></span><span class="sep">→</span>
-        <span class="node"><b>Eficiencia</b></span>
+        <a href="#sistema" class="link-quiet hero-more">Ver cómo funciona ↓</a>
       </div>
     </div>
   </section>
@@ -863,36 +947,29 @@
   <!-- PROBLEMA -->
   <section id="problema">
     <div class="wrap">
-      <div class="problem-grid">
-        <div>
-          <p class="problem-quote">
-            "Tengo algo que vender, pero no tengo un sistema predecible para conseguir nuevos clientes."
-            <small>Lo que sienten la mayoría de negocios que ya venden bien</small>
-          </p>
-        </div>
-        <ul class="problem-list">
-          <li>
-            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="2.6"/><circle cx="17" cy="12" r="2.6"/><line x1="10.2" y1="12" x2="13.8" y2="12" stroke-dasharray="2 3"/></svg></span>
-            <span>Presencia digital incompleta o desconectada entre canales</span>
-          </li>
-          <li>
-            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
-            <span>Publicidad sin hipótesis: se lanza sin saber qué se busca aprender</span>
-          </li>
-          <li>
-            <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="15" height="10" rx="2"/><polygon points="7,15 7,19 11,15" fill="currentColor" stroke="none"/><line x1="21" y1="10" x2="23" y2="10" stroke-dasharray="1 2"/></svg></span>
-            <span>Conversaciones que no siguen un proceso de cierre</span>
-          </li>
-          <li>
-            <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-            <span>Decisiones tomadas por intuición, sin datos que las respalden</span>
-          </li>
-          <li>
-            <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/><text x="10" y="13" font-size="7.5" text-anchor="middle" fill="currentColor" stroke="none">?</text></svg></span>
-            <span>Imposibilidad real de saber qué está funcionando y qué no</span>
-          </li>
-        </ul>
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Ya tienes algo que vender.<br>El problema es conseguir clientes de forma consistente.</h2>
+        <p>Muchos negocios ya tienen producto, clientes y capacidad para vender. Lo que falta es un sistema que conecte todo lo que ya tienen.</p>
       </div>
+      <ul class="problem-list">
+        <li>
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="2.6"/><circle cx="17" cy="12" r="2.6"/><line x1="10.2" y1="12" x2="13.8" y2="12" stroke-dasharray="2 3"/></svg></span>
+          <span>Presencia digital desconectada.</span>
+        </li>
+        <li>
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+          <span>Publicidad sin dirección.</span>
+        </li>
+        <li>
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="15" height="10" rx="2"/><polygon points="7,15 7,19 11,15" fill="currentColor" stroke="none"/><line x1="21" y1="10" x2="23" y2="10" stroke-dasharray="1 2"/></svg></span>
+          <span>Interés que no se convierte.</span>
+        </li>
+        <li>
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+          <span>Decisiones sin datos.</span>
+        </li>
+      </ul>
+      <p class="problem-close">AURENIX conecta estas piezas en un mismo sistema para que cada acción pueda medirse, aprender y mejorar.</p>
       <p class="sector-label">Es una sensación transversal — no importa el sector:</p>
       <div class="sector-strip">
         <div class="sector-item">
@@ -951,16 +1028,8 @@
   <section id="sistema">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="eyebrow-free-heading">El D.A.S. — Digital Acquisition System</h2>
-        <p class="das-kicker">No es una lista de servicios. Es un sistema de <b>diagnóstico y evolución</b>: cada fase existe para responder una pregunta concreta sobre el negocio.</p>
-        <div class="das-loop-line">
-          <b>Diagnosticar</b><span class="sep">→</span>
-          <b>Identificar cuello de botella</b><span class="sep">→</span>
-          <b>Intervenir</b><span class="sep">→</span>
-          <b>Medir</b><span class="sep">→</span>
-          <b>Aprender</b><span class="sep">→</span>
-          <b>Decidir siguiente movimiento</b>
-        </div>
+        <h2 class="eyebrow-free-heading">Un sistema. Seis capacidades.</h2>
+        <p class="das-kicker">El D.A.S. — Digital Acquisition System — es la estructura que utilizamos para identificar qué necesita realmente tu negocio y construirlo por etapas.</p>
       </div>
 
       <div class="das-tabs" id="dasTabs">
@@ -1003,7 +1072,7 @@
             <div class="das-node">01</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Digitalizar</div>
             <div class="das-q">¿Tenemos la infraestructura necesaria?</div>
-            <p class="das-desc">Redes sociales activas, tienda en línea y WhatsApp Business — la base para existir digitalmente.</p>
+            <p class="das-desc">Construimos la infraestructura necesaria para vender digitalmente.</p>
           </div>
         </div>
         <div class="das-panel" data-phase="2">
@@ -1012,7 +1081,7 @@
             <div class="das-node">02</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>Adquirir</div>
             <div class="das-q">¿Podemos generar oportunidades?</div>
-            <p class="das-desc">Pensamiento creativo puesto en producción: ideas convertidas en piezas que generan oportunidades reales.</p>
+            <p class="das-desc">Creamos mecanismos para generar nuevas oportunidades de clientes.</p>
           </div>
         </div>
         <div class="das-panel" data-phase="3">
@@ -1021,7 +1090,7 @@
             <div class="das-node">03</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Convertir</div>
             <div class="das-q">¿Podemos convertirlas en clientes?</div>
-            <p class="das-desc">El usuario sale de la red social hacia un canal más privado: pregunta, muestra interés, empieza la conversación de venta.</p>
+            <p class="das-desc">Diseñamos el recorrido entre el primer contacto y la compra.</p>
           </div>
         </div>
         <div class="das-panel" data-phase="4">
@@ -1030,7 +1099,7 @@
             <div class="das-node">04</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Optimizar</div>
             <div class="das-q">¿Sabemos qué funciona y qué mejorar?</div>
-            <p class="das-desc">Cada experimento se mide con datos: qué funciona, qué no, y por qué.</p>
+            <p class="das-desc">Medimos qué funciona, qué no y dónde está el cuello de botella.</p>
           </div>
         </div>
         <div class="das-panel" data-phase="5">
@@ -1039,7 +1108,7 @@
             <div class="das-node">05</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Escalar</div>
             <div class="das-q">¿Podemos crecer sin romper el sistema?</div>
-            <p class="das-desc">Lo que ya funciona se replica en más canales, más audiencia, más presupuesto — sin romper el sistema.</p>
+            <p class="das-desc">Aumentamos lo que ya demuestra funcionar.</p>
           </div>
         </div>
         <div class="das-panel" data-phase="6">
@@ -1048,11 +1117,11 @@
             <div class="das-node">06</div>
             <div class="das-phase"><svg class="das-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Automatizar</div>
             <div class="das-q">¿Podemos reducir el trabajo manual?</div>
-            <p class="das-desc">Los procesos que se repiten se automatizan, liberando tiempo para lo que sí requiere criterio humano.</p>
+            <p class="das-desc">Reducimos el trabajo repetitivo cuando el sistema ya tiene suficiente volumen y estabilidad.</p>
           </div>
         </div>
       </div>
-      <p class="cycle-caption">No es una escalera de servicios. Es un ciclo: el sistema puede avanzar, repetirse o retroceder según lo que indique el diagnóstico.</p>
+      <p class="cycle-caption">No todos los negocios necesitan las seis fases al mismo tiempo. El diagnóstico determina dónde empezar.</p>
     </div>
   </section>
 
@@ -1089,6 +1158,7 @@
           </ol>
         </div>
       </div>
+      <p class="protocol-close">No ejecutamos por intuición. Cada decisión del sistema debe producir evidencia.</p>
     </div>
   </section>
 
@@ -1126,32 +1196,144 @@
   <section id="para-quien">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="eyebrow-free-heading">Para quién existe AURENIX</h2>
+        <h2 class="eyebrow-free-heading">AURENIX funciona mejor cuando ya existe algo que vender.</h2>
       </div>
-      <div class="who-grid">
-        <ul class="who-traits">
-          <li><span>Rol</span><span>Dueño, fundador o responsable de crecimiento</span></li>
-          <li><span>Momento</span><span>Ya vende, aún sin sistema digital</span></li>
-          <li><span>Canal actual</span><span>WhatsApp, redes, referidos</span></li>
-          <li><span>Necesidad</span><span>Predecibilidad, no más tráfico</span></li>
-        </ul>
-        <div class="who-copy">
-          <p>No buscamos crear negocios desde cero. Buscamos <strong>digitalizar y potenciar negocios que ya tienen una base real</strong>: producto validado, capacidad operativa y algo de tracción comercial.</p>
-          <p>No está buscando aprender marketing. Está buscando resolver una pregunta muy concreta: <strong>¿de dónde van a salir mis próximos clientes?</strong></p>
-          <p>Por eso el D.A.S. no promete duplicar ventas ni garantizar resultados. Promete algo más defendible: <strong>construir el sistema, medirlo y optimizarlo</strong> para mejorar continuamente la adquisición.</p>
+      <div class="who-compare">
+        <div class="who-col yes">
+          <h3>Ideal para negocios que:</h3>
+          <ul class="who-check-list">
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Tienen un producto o servicio definido</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Ya tienen algún nivel de ventas</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Pueden atender nuevos clientes</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Están dispuestos a invertir en adquisición</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Quieren construir un sistema medible</span></li>
+          </ul>
+        </div>
+        <div class="who-col no">
+          <h3>No es ideal para:</h3>
+          <ul class="who-check-list">
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Negocios que todavía no han validado su oferta</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Personas que únicamente buscan publicaciones para redes</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Clientes que quieren resultados garantizados sin experimentar</span></li>
+            <li><span class="who-mark"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Negocios que no tienen capacidad para atender nuevos clientes</span></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- POSICIONAMIENTO -->
-  <section id="posicionamiento">
+  <!-- FAQ + INVERSIÓN -->
+  <section id="faq">
     <div class="wrap">
-      <p class="lead-statement">AURENIX no entrega campañas, páginas o automatizaciones. <strong>Entrega sistemas capaces de aprender y evolucionar.</strong> Las páginas, campañas y automatizaciones son solo componentes.</p>
-      <div class="statements">
-        <p class="statement">No es publicidad. <b>Es adquisición.</b></p>
-        <p class="statement">No es una tienda. <b>Es un sistema para vender.</b></p>
-        <p class="statement">No optimizamos campañas. <b>Optimizamos sistemas.</b></p>
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Preguntas frecuentes</h2>
+        <p>Precio, tiempos y qué pasa si una hipótesis no funciona — sin letra pequeña.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h4>Diagnóstico</h4>
+          <div class="price">$350.000 <small>COP</small></div>
+          <div class="timeframe">3–5 días hábiles</div>
+        </div>
+        <div class="price-card">
+          <h4>Implementación</h4>
+          <div class="price">Desde $3.500.000 <small>COP</small></div>
+          <div class="timeframe">3–6 semanas</div>
+        </div>
+        <div class="price-card">
+          <h4>Growth / Optimización</h4>
+          <div class="price">$1.500.000–$2.500.000 <small>COP / mes</small></div>
+          <div class="timeframe">Según alcance</div>
+        </div>
+        <div class="price-card">
+          <h4>Automatización</h4>
+          <div class="price">Desde $1.500.000 <small>COP</small></div>
+          <div class="timeframe">Según proyecto</div>
+        </div>
+      </div>
+      <p class="pricing-note">La inversión publicitaria, software de terceros y desarrollos extraordinarios se cotizan por separado.</p>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>¿Cuánto cuesta trabajar con AURENIX?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>No existe un precio único porque no todos los negocios necesitan construir el mismo sistema.</p>
+            <p>Los proyectos de implementación parten desde $3.500.000 COP y el valor final depende del alcance, infraestructura existente y fases necesarias.</p>
+            <p>El diagnóstico inicial tiene un valor de $350.000 COP y puede descontarse del proyecto de implementación si el cliente contrata dentro de los 30 días siguientes.</p>
+            <p>La inversión publicitaria y herramientas de terceros se pagan por separado.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cuánto tarda implementar el sistema?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Una implementación inicial normalmente toma entre 3 y 6 semanas.</p>
+            <p>El tiempo depende del punto de partida, el alcance y las fases necesarias.</p>
+            <p>No buscamos esperar meses para empezar a medir. Construimos, lanzamos, medimos y mejoramos progresivamente.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué pasa si el sistema no funciona?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>AURENIX no promete una cantidad determinada de ventas.</p>
+            <p>El trabajo se basa en un proceso medible: Diagnóstico → Hipótesis → Implementación → Medición → Aprendizaje → Decisión.</p>
+            <p>Si una hipótesis no funciona, utilizamos la evidencia para decidir qué cambiar, detener o probar después.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Con qué tipo de negocios trabajan?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Principalmente con negocios que ya tienen una oferta definida, algún nivel de ventas y capacidad para atender nuevos clientes.</p>
+            <p>AURENIX no busca simplemente crear presencia digital. Busca construir un sistema de adquisición medible.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿La publicidad está incluida?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Puede formar parte de la implementación cuando el diagnóstico determina que es necesaria.</p>
+            <p>La inversión publicitaria siempre se maneja como presupuesto independiente.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Tengo que cambiar la forma en que actualmente vendo?
+            <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>No necesariamente.</p>
+            <p>Primero identificamos qué funciona actualmente y construimos alrededor de ello. No buscamos reemplazar algo que funciona sin evidencia.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDADOR -->
+  <section id="fundador">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="eyebrow-free-heading">Detrás de AURENIX</h2>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">
+          <!-- ⚠ Reemplaza este ícono por <img src="assets/img/fundador.jpg" alt="[Nombre del fundador]"> cuando tengas la foto -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        </div>
+        <div class="founder-info">
+          <div class="founder-name"><!-- ⚠ Reemplazar --> [Nombre del fundador]</div>
+          <div class="founder-role">Fundador de AURENIX.</div>
+          <p class="founder-bio">Construyo sistemas de adquisición para negocios que ya venden y necesitan una forma más estructurada y medible de conseguir nuevos clientes.</p>
+          <div class="founder-tags">Estrategia · Experimentación · Sistemas</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1189,13 +1371,13 @@
   </section>
 
   <!-- CTA FINAL -->
-  <!-- ⚠ Reemplaza 573194639707 en los 3 enlaces "js-whatsapp" de este archivo por el número real de WhatsApp de AURENIX (código de país + número, sin + ni espacios, ej: 573001234567) antes de publicar. -->
   <section id="contacto" class="final-cta">
     <div class="wrap">
-      <h2>Convierte tu capacidad de vender en un sistema para adquirir clientes.</h2>
+      <h2>¿Listo para construir un sistema que consiga clientes?</h2>
+      <p class="final-cta-sub">No necesitas añadir más canales. Necesitas que los que ya tienes trabajen juntos.</p>
       <div class="row">
         <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20construir%20mi%20sistema%20de%20adquisici%C3%B3n%20con%20AURENIX" class="btn btn-primary js-whatsapp" target="_blank" rel="noopener">Construir mi sistema</a>
-        <a href="https://wa.me/573194639707?text=Hola%2C%20quiero%20agendar%20una%20llamada%20con%20AURENIX" class="btn btn-ghost js-whatsapp" target="_blank" rel="noopener">Agendar una llamada</a>
+        <a href="#" class="btn btn-ghost js-calendly" target="_blank" rel="noopener">Agendar una llamada</a>
       </div>
     </div>
   </section>
@@ -1211,6 +1393,7 @@
     <div class="footer-links">
       <a href="#sistema">Cómo funciona</a>
       <a href="#para-quien">Para quién</a>
+      <a href="#faq">Precios &amp; FAQ</a>
       <a href="#contacto">Contacto</a>
     </div>
   </div>
@@ -1220,6 +1403,31 @@
 </footer>
 
 <script>
+  // ---------------------------------------------------------------
+  // CONFIGURACIÓN: URL de Calendly (o el calendario que uses).
+  // Reemplaza con tu link real, ej: "https://calendly.com/aurenix/diagnostico-aurenix"
+  // Equivalente a una variable de entorno (NEXT_PUBLIC_CALENDLY_URL) si en el futuro
+  // este sitio migra a un framework con build step (Next.js, Vite, etc.) — por ahora,
+  // al ser HTML/JS estático sin build, este es el único punto de configuración.
+  // Mientras quede vacío, los botones "Agendar una llamada" no harán nada al hacer clic.
+  // ---------------------------------------------------------------
+  var CALENDLY_URL = "";
+
+  (function(){
+    var calendlyLinks = document.querySelectorAll('.js-calendly');
+    if (!calendlyLinks.length) return;
+    calendlyLinks.forEach(function(a){
+      if (CALENDLY_URL) {
+        a.setAttribute('href', CALENDLY_URL);
+      } else {
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          console.info('[AURENIX] Falta configurar CALENDLY_URL en el <script> de index.html.');
+        });
+      }
+    });
+  })();
+
   // Mobile nav toggle
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');

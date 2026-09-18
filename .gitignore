@@ -16,3 +16,5 @@ Sitio web premium AURENIX - Sistema de adquisición digital - Claude.html
 
 # Sistema
 .DS_Store
+.vercel
+.claude
